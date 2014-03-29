@@ -1,8 +1,7 @@
-package org.skywing.demo.storm;
+package org.skywing.demo.storm.bolt;
 
 import java.util.Map;
 
-import backtype.storm.Config;
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IRichBolt;
@@ -14,7 +13,6 @@ import backtype.storm.tuple.Values;
 public class WordNormalizer implements IRichBolt
 {
 	private static final long serialVersionUID = 6403910644793860780L;
-	private Config conf;
 	private OutputCollector collector;
 	
 	@SuppressWarnings("rawtypes")
@@ -22,7 +20,6 @@ public class WordNormalizer implements IRichBolt
 	public void prepare(Map stormConf, TopologyContext context,
 			OutputCollector collector)
 	{
-		this.conf = (Config) stormConf;
 		this.collector = collector;
 	}
 
@@ -58,7 +55,7 @@ public class WordNormalizer implements IRichBolt
 	@Override
 	public Map<String, Object> getComponentConfiguration()
 	{
-		return this.conf;
+		return null;
 	}
 
 }
