@@ -38,6 +38,8 @@ public class App
     	for (String child : children)
     	{
     		System.out.println("get child [" + child + "]");
+    		byte[] data = zk.getData(DIR_ZOO + '/' + child, true, null);
+    		System.out.println("data: " + new String(data, Charset.defaultCharset()));
     	}
     }
     
