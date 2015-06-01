@@ -1,7 +1,5 @@
 package org.skywing.code.demo.unittest.mail;
 
-import java.util.Date;
-
 import com.google.common.base.Objects;
 
 /**
@@ -13,7 +11,7 @@ public class Email {
     private String domain;
     private String user;
     private String body;
-    private Date timestamp;
+    private long timestamp;
 
     public Email(EmailBuilder builder) {
         this.domain = builder.domain;
@@ -34,7 +32,7 @@ public class Email {
         return body;
     }
 
-    public Date getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
@@ -45,7 +43,14 @@ public class Email {
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.equal(this, obj);
+        if (obj instanceof Email) {
+            Email that = Email.class.cast(obj);
+            return Objects.equal(this.user, that.user)
+                    & Objects.equal(this.domain, that.domain)
+                    & Objects.equal(this.body, that.body)
+                    & Objects.equal(this.timestamp, that.timestamp);
+        }
+        return false;
     }
 
     @Override
@@ -60,7 +65,7 @@ public class Email {
         private String domain;
         private String user;
         private String body;
-        private Date timestamp;
+        private long timestamp;
         
         public EmailBuilder domain(String domain) {
             this.domain = domain;
@@ -77,7 +82,7 @@ public class Email {
             return this;
         }
         
-        public EmailBuilder timestamp(Date timestamp) {
+        public EmailBuilder timestamp(long timestamp) {
             this.timestamp = timestamp;
             return this;
         }

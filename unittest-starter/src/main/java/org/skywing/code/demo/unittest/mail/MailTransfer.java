@@ -1,8 +1,6 @@
 package org.skywing.code.demo.unittest.mail;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import org.skywing.code.demo.unittest.mail.Email.EmailBuilder;
 
@@ -32,7 +30,7 @@ public class MailTransfer {
         
         EmailBuilder builder = new Email.EmailBuilder();
         Email email = builder.user(addrComponents.get(0)).domain(addrComponents.get(1))
-                .body(body).timestamp(Calendar.getInstance(Locale.CHINA).getTime()).build();
+                .body(body).timestamp(Utils.timestamp()).build();
         
         externalMailSystem.send(email);
     }
