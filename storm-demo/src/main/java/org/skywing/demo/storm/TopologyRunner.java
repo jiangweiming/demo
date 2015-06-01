@@ -1,5 +1,7 @@
 package org.skywing.demo.storm;
 
+import java.net.URL;
+
 import org.skywing.demo.storm.bolt.WordCounter;
 import org.skywing.demo.storm.bolt.WordNormalizer;
 import org.skywing.demo.storm.spout.WordReader;
@@ -21,7 +23,8 @@ public class TopologyRunner
 	
 		//Configuration
 		Config conf = new Config();
-		conf.put("wordsFile", "E:\\words.txt");
+		URL url = TopologyRunner.class.getResource("/words.txt");
+		conf.put("wordsFile", url.getPath());
 		conf.setDebug(false);
 		
 		//Topology run
@@ -30,5 +33,10 @@ public class TopologyRunner
 		cluster.submitTopology("started-example", conf, builder.createTopology());
 		Thread.sleep(1000);
 		cluster.shutdown();
+		
+		/*
+		StormSubmitter submitter = new StormSubmitter();
+		submitter.submitTopology("started-example", conf, builder.createTopology());
+		*/
 	}
 }
