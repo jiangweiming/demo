@@ -1,4 +1,4 @@
-package org.skywing.demo.storm;
+package org.skywing.demo.storm.spout;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import backtype.storm.Config;
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IRichSpout;
@@ -22,7 +21,6 @@ public class WordReader implements IRichSpout
 	private SpoutOutputCollector collector;
 	private FileReader fileReader;
 	private boolean completed = false;
-	private Config conf;
 	
 	@Override
 	public void ack(Object msgId)
@@ -99,6 +97,7 @@ public class WordReader implements IRichSpout
 	@Override
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector)
 	{
+		System.out.println("######### word reader #########");
 		try
 		{
 			this.fileReader = new FileReader(conf.get("wordsFile").toString());
@@ -108,7 +107,6 @@ public class WordReader implements IRichSpout
 			throw new RuntimeException("Error reading file [" + conf.get("wordsFile") + "]");
 		}
 		this.collector = collector;
-		this.conf = (Config) conf;
 	}
 
 	@Override
@@ -120,7 +118,7 @@ public class WordReader implements IRichSpout
 	@Override
 	public Map<String, Object> getComponentConfiguration()
 	{
-		return this.conf;
+		return null;
 	}
 
 }
