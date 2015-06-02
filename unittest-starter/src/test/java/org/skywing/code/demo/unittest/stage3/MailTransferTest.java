@@ -1,6 +1,6 @@
 package org.skywing.code.demo.unittest.stage3;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,6 +21,11 @@ public class MailTransferTest {
     public void testTransfer() {
         MailTransfer mailTransfer = new MailTransfer(mailSystem);
         mailTransfer.transfer("user@yahoo.com", "body");
+        
+        MockExternalMailSystem mock = MockExternalMailSystem.class.cast(mailSystem);
+        assertEquals(1, mock.emailsOut.size());
+        assertEquals("body", mock.emailsOut.get(0).getBody());
+        assertEquals("user@yahoo.com", mock.emailsOut.get(0).getUser() + "@" + mock.emailsOut.get(0).getDomain());
     }
     
     @Test(expected=RuntimeException.class)

@@ -46,9 +46,9 @@ public class Email {
         if (obj instanceof Email) {
             Email that = Email.class.cast(obj);
             return Objects.equal(this.user, that.user)
-                    & Objects.equal(this.domain, that.domain)
-                    & Objects.equal(this.body, that.body)
-                    & Objects.equal(this.timestamp, that.timestamp);
+                    && Objects.equal(this.domain, that.domain)
+                    && Objects.equal(this.body, that.body)
+                    && Objects.equal(this.timestamp, that.timestamp);
         }
         return false;
     }
